@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ready Report</title>
+</head>
+<body>
+<div class="wrapper">
+  <div class="content-wrapper">
+    <!-- <div class="unic_logo">
+       <img src="assets/images/head.png" alt="">
+     </div>-->
+    <div class="container" >
+
+      <div class="summary-title">
+        <h2>Заключение по результатам нейропсихологического исследования от <span>{{examinationDate}} </span> на
+          <span> {{nameOfUser}}</span> <span></span> {{birthdayOfUser}} г.р.</h2>
+        <div>
+          <div *ngIf="complaints">
+            <div>Жалобы со слов мамы</div>
+            <div>{{complaints}}</div>
+          </div>
+          <div *ngIf="med_anamnesis">
+            <div>Медицинский анамнез</div>
+            <div>{{med_anamnesis}}</div>
+          </div>
+          <div *ngIf="soc_anamnesis">
+            <div>Социальный анамнез</div>
+            <div>{{soc_anamnesis}}</div>
+          </div>
+
+          <div >
+            В ситуации обследования поведение <span> {{adequancy}}.</span>
+            <span class="div" *ngIf="adequancyDescription.length > 0">Обследуемый демонстрирует {{adequancyDescription}}.</span> Продуктивному речевому и глазному контакту <span>{{ contact}}.</span> <span *ngIf="conversation"> В беседу вступает {{conversation}}. </span>
+            <span *ngIf="entranceDescription.length >0"> В беседу вступает {{entranceDescription}}. </span>
+            <span *ngIf="speechInitiation">Речевая инициатива{{speechInitiation}} .</span>
+            <span *ngIf="distance">{{distance}}</span>. <span>{{ orientation}}.</span>
+            <span *ngIf="orientationDescription.length > 0">{{orientationDescription}}.</span>
+            Экспертная мотивация <span>{{expert_motivation}}.</span> <span>{{interest}} .</span>
+            <span *ngIf="emotional_state">{{emotional_state}} .</span> <span *ngIf="emotional_stateDescription.length > 0 ">Отмечаются  {{emotional_stateDescription}}. </span>
+            <span>{{ criticality}}</span>.
+
+            Инструкции <span>{{instructionUnderstanding}}.</span> Задания <span>{{tasks}}.</span>
+            <span *ngIf="help && helpDescription.length > 0">Необходима <span> {{helpDescription}}</span>помощь.</span>
+            <span *ngIf="helpAccepting">{{helpAccepting}}.</span>
+            <span *ngIf="workTempo">Темп деятельности <span>{{workTempo}}</span> .</span> <span *ngIf="workDinamic">Динамика работоспособности <span>{{workDinamic}}</span>.</span>
+          </div>
+          <div *ngIf="objectiveZeroSymptoms.length !==0 || objectiveNotBadSymptoms.length !==0 || objectiveBadSymptoms.length !==0 || objectiveWorseSymptoms.length !==0">
+            По объективным данным:
+            <p><strong>Гнозис.</strong>
+              <span *ngIf="visiual_gnosis">При исследовании зрительного гнозиса отмечается {{visiual_gnosis}}.</span>
+              <span *ngIf="visiual_symbolic_gnosis"> Также отмечается недостаточность символического гнозиса в виде {{visiual_symbolic_gnosis}}.</span>
+              <span *ngIf="copy_gnosis">При копировании сложных фигур Тейлора и Рея-Остеррица отмечаются {{copy_gnosis}}.</span>
+              <span *ngIf="emotional_gnosis">{{emotional_gnosis}} </span>
+              <span *ngIf="auditional_gnosis">При исследовании  слухового гнозиса отмечается {{auditional_gnosis}}.</span>
+              <span *ngIf="sensor_gnosis">При исследовании тактильного гнозиса отмечается {{sensor_gnosis}}.</span>
+              <span *ngIf="!sensor_gnosis && !emotional_gnosis && !auditional_gnosis && !visiual_gnosis"> Все виды гнозиса без особенностей.</span>
+            </p>
+            <p>
+              <strong> Праксис.</strong>
+              <span *ngIf="dinamic_pracsis"> В пробе на динамический праксис отмечаются {{dinamic_pracsis}}.</span>
+              <span *ngIf="!dinamic_pracsis">Динамический праксис без особенностей.</span> <span *ngIf="reciprok">В пробе на реципрокную кординацию отмечаются {{reciprok}}.</span>
+              <span *ngIf="!reciprok">Реципрокная кординация без особенностей. </span>
+              <span *ngIf="!position_pracsis">Проба на праксис поз без особенностей.</span> <span *ngIf="position_pracsis">В пробе на праксис поз отмечается {{position_pracsis}}.</span>
+              <span *ngIf="choice_reaction">В пробе на реакцию выбора отмечается {{choice_reaction}}.</span>
+              <span *ngIf="grafics_pracsis">В графической пробе отмечается {{grafics_pracsis}}.</span>
+              <span *ngIf="constract_pracsis">При исследовании конструктивного праксиса {{constract_pracsis}}.</span>
+              <span *ngIf="eyes_test">В пробе на глазодвигательный праксис отмечается {{eyes_test}}.</span>
+              <span *ngIf="heads_test"> В пробе Хэда отмечается {{heads_test}}.</span>
+              <span *ngIf="!dinamic_pracsis && !reciprok && !position_pracsis && !grafics_pracsis && !constract_pracsis && !choice_reaction && !heads_test"> Все виды праксиса без особенностей.</span>
+            </p>
+            <p>
+              <strong>Память.</strong>
+              <span *ngIf="audit_memory">При исследовании слухоречевой памяти отмечаются {{audit_memory}}.
+                <span *ngIf="memoryPoints.length > 0">Кривая запоминания ({{memoryPoints}}).</span> </span>
+              <span *ngIf="!audit_memory">Слухоречевая память без особенностей. Кривая запоминания ({{memoryPoints}}).</span>
+              <span *ngIf="audit_memory_2_3">При исследовании слухоречнвой памяти в пробе "2 по 3" отмечаются {{audit_memory_2_3}}.</span>
+              <span *ngIf="visial_space_memory">При исследовании зрительной памяти отмечается {{visial_space_memory}}.</span>
+              <span *ngIf="visiual_memory"> В пробе 2/3 отмечаются {{visiual_memory}}.</span>
+              <span *ngIf="calculating">
+                <strong>Счет.</strong>При исследовании счетных фунцций отмечается {{calculating}}.</span>
+            </p>
+            <p>
+              <strong>Мышление.</strong> <span *ngIf="!causal_link && !exclude_4 && !pictures_understanding && !solving_problems">Причинно-следственные связи устанавливает верно, самостоятельно. 4-й лишний исключает по категориальному и функциональному признаку. Смысл сюжетных картин и рассказов доступен, в том числе скрытый.Решение арифметичеких задач трудностей не вызывает.</span>
+              <span *ngIf="causal_link">{{causal_link}}</span> <span *ngIf="solving_problems">При решении задач отмечаются {{solving_problems}}. </span>
+              <span *ngIf="exclude_4">Исключение 4 лишнего {{exclude_4}}.</span> <span *ngIf="pictures_understanding">Понимание смысла сюжетных картин {{pictures_understanding}}.</span>
+              <span *ngIf="text_meaning"> Понимание текста  {{text_meaning}}.</span>
+            </p>
+            <p>
+              <span *ngIf="speech">  <strong>Речь.</strong>  {{speech}}</span>
+            </p>
+            <p>
+             <span *ngIf="mobility || minusMobility2 || sinus || attention || switchOfMovements"><strong>Нейродинамический компонент</strong> характеризуется
+
+          <span *ngIf="mobility">{{mobility}},</span>
+               <!-- <span *ngIf="mobility2 !==''">{{mobility2}},</span><span *ngIf="mobility3">{{mobility3}},</span> -->
+          <span *ngIf="minusMobility2"> {{minusMobility2}},</span>
+          <span *ngIf="sinus"> {{sinus}},</span> <span *ngIf="sinus2"> {{sinus2}}.</span>
+          <span *ngIf="regulation">{{regulation}},</span>  <span *ngIf="regulation2">{{regulation2}},</span>
+               <span *ngIf="regulation3">{{regulation3}}.</span> </span>
+              <span *ngIf="!attention && !switchOfMovements"><strong>Нейродинамический компонент </strong> без особенностей.</span>
+              <span *ngIf="shultePoints && shultePoints !== '' "> Таблицы Шульте {{shultePoints}}.  </span>
+              <span *ngIf="attention">При выполнении пробы отмечается {{attention}}. </span>
+            </p>
+            <p>
+         <span *ngIf="programming || mentalProgramming"><strong>Регуляторный компонент</strong> характеризуется недостаточностью в звене программирования
+           {{programming || mentalProgramming}},</span>
+              <span *ngIf="programming2 || mentalProgramming2"><strong>Регуляторный компонент</strong> выражено {{programming2}}
+                , {{mentalProgramming2}}.</span>
+              <span *ngIf="programming3"><strong>Регуляторный компонент</strong> {{programming3}},</span>
+              <span *ngIf="control"> <strong>Регуляторный компонент</strong> характеризуется {{control}}.</span>
+              <!-- <span *ngIf="control2">{{control2}}.</span><span *ngIf="control3">{{control3}}.</span>-->
+              <span *ngIf="!programming && !programming2 && !programming3 && !mentalProgramming && !mentalProgramming2 && !control
+        && !control2 && !control3"> <strong> Регуляторный компонент</strong>  достаточен.</span> <span></span>
+            </p>
+
+          </div>
+          <div *ngIf="isRefresh">
+            <h5> Таким образом, на первый план выступает {{resume}}</h5>
+          </div>
+          <div>
+            <textarea rows="10" cols="80" [(ngModel)]="resume_description" *ngIf="!isRefresh">Таким образом, на первый план выступает </textarea>
+          </div>
+          <div>
+            <div class="recommends-title" *ngIf="isRefresh">
+              <h2>Рекомендации</h2>
+            </div>
+            <div>
+              {{recommends}}
+            </div>
+          </div>
+          <div class="recommends" *ngIf="!isRefresh">
+            <div class="recommends-title">
+              <h2>Рекомендации</h2>
+            </div>
+            <textarea rows="10" cols="80" [(ngModel)]="recommends_decription"></textarea>
+          </div>
+          <button class="btn-sm bg-success " (click)="saveSolutions(resume_description,recommends_decription)" *ngIf="!isRefresh"> Сохранить
+          </button>
+          <button class="btn-sm bg-success " (click)="saveAndSendRequestToDB()"  *ngIf="isRefresh"> Сохранить и выйти</button>
+
+
+          <div>
+            Клинический психолог, нейропсихолог Кудленок В.Е.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

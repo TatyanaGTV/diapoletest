@@ -10,34 +10,27 @@ import { HeaderComponent } from './shared/layout/header/header.component';
 import { SidebarComponent } from './shared/layout/sidebar/sidebar.component';
 import { RaportPageComponent } from './views/raport-page/raport-page.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import { ReadyReportsComponent } from './views/ready-reports/ready-reports.component';
 import {RouterModule} from "@angular/router";
 
 
 
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    MainRaportPageComponent,
-    PointCounterComponent,
-    LayoutComponent,
-    FooterComponent,
-    HeaderComponent,
-    SidebarComponent,
-    RaportPageComponent,
-    ReadyReportsComponent,
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    AppRoutingModule,
-    RouterModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        MainRaportPageComponent,
+        PointCounterComponent,
+        LayoutComponent,
+        FooterComponent,
+        HeaderComponent,
+        SidebarComponent,
+        RaportPageComponent,
+        ReadyReportsComponent,
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AppRoutingModule,
+        RouterModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }

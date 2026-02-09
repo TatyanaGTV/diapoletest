@@ -46,7 +46,8 @@ class Diagnosis_conclusionController {
       raport = {
             id: id,
             title: req.body.title,
-            user_id: req.body.user.id
+            user_id: req.body.user.id,
+            solution: req.body.solution
         };
 
       ConclusionModel.create(raport)

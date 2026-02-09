@@ -20,3 +20,15 @@ class UserModel {
 }
 
 module.exports = UserModel;
+
+let start = async () => {
+  try {
+    let user =  await users.UserModule().findOne({name: "Татьяна"})
+    console.log(user )
+  } catch (e) {
+    console.log(e)
+  }
+
+}
+
+start()

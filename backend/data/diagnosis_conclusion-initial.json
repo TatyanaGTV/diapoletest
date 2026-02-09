@@ -2,26 +2,24 @@
   {
     "id": 1,
     "title": "Иванов",
-    "user_id": 1
-  },
-  {
-    "id": 0,
-    "userId": 0,
-    "dateOfDiagnostic": "",
-    "nameOfClient": "",
-    "dateOfBirth": "",
-    "presolution":"",
-    "perfomance":"",
-    "gnosis":"",
-    "pracsis":"",
-    "memory":"",
-    "thinking":"",
-    "speech":"",
-    "dinamic":"",
-    "regulation":"",
-    "resume":"",
-    "recommendation":""
-  }
-]
+    "user_id": 1,
+    "solution":
+    { "dateOfDiagnostic": "",
+      "nameOfClient": "",
+      "dateOfBirth": "",
+      "presolution": [""],
+      "perfomance": [""],
+      "gnosis": [""],
+      "pracsis": [""],
+      "memory": [""],
+      "calculating": [""],
+      "thinking": [""],
+      "speech": "",
+      "dinamic": [""],
+      "regulation": [""],
+      "resume": "",
+      "recommendation":""
+    }
+  }]
 
 

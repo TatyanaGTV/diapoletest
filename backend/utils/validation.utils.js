@@ -1,11 +1,12 @@
-const Joi = require("@hapi/joi");
+//const Joi = require("@hapi/joi");
+const Joi = require("joi");
 
 class ValidationUtils {
     static signupValidation(data) {
         const schema = Joi.object({
             name: Joi.string().min(3).required(),
             lastName: Joi.string().min(3).required(),
-            email: Joi.string().min(6).required().email().required(),
+            email: Joi.string().min(6).required().email(),
             password: Joi.string().min(6).required(),
             passwordRepeat: Joi.any().equal(Joi.ref('password'))
                 .required()
@@ -18,7 +19,6 @@ class ValidationUtils {
         const schema = Joi.object({
             email: Joi.string().min(6).required().email(),
             password: Joi.string().min(6).required(),
-            rememberMe: Joi.boolean().default(false),
         });
         return schema.validate(data, { abortEarly: false});
     }

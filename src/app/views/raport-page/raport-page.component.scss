@@ -1,9 +1,19 @@
+.hide-for-pdf {
+  display: none !important;
+}
+h2{
+font-size: 25px;
+}
 .recommends-title h2{
   font-size: 20px;
 }
 .container{
-  max-width: 1100px;
+  max-width: 200mm;
 }
-.unic_logo img{
-  width: 1200px;
+.unic_logo img {
+  width: 100%;
 }
+.unic_logo{
+  width: 200mm;
+}
+

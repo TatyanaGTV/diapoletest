@@ -13,6 +13,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import { ReadyReportsComponent } from './views/ready-reports/ready-reports.component';
 import {RouterModule} from "@angular/router";
+import {MainPictureComponent} from "./shared/components/main-picture/main-picture.component";
+import {ChartComponent} from "./views/chart/chart.component";
+import {ExportToPdfComponent} from "./views/export-to-pdf/export-to-pdf.component";
 
 
 
@@ -22,11 +25,14 @@ import {RouterModule} from "@angular/router";
         MainRaportPageComponent,
         PointCounterComponent,
         LayoutComponent,
+        MainPictureComponent,
         FooterComponent,
         HeaderComponent,
         SidebarComponent,
         RaportPageComponent,
         ReadyReportsComponent,
+        ChartComponent,
+        ExportToPdfComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         FormsModule,

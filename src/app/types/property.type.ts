@@ -8,5 +8,11 @@ export type PropertyType = {
   descriptionGeneral?: string[],
   descriptionNatureOfHelp?: string[],
   descriptionWhereHelp?: string[],
-  descriptionEffectOfHelp?: string[]
+  descriptionEffectOfHelp?: string[],
+  descriptionDrawingByInstruction?:string[],
+  descriptionCopy?:string[],
+  descriptionEval?:string[],
+  descriptionDoing?: string[],
+  descriptionDoingByInstruction?: string[],
+  descriptionSpeed?: string[]
 }

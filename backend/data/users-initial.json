@@ -1,11 +1,4 @@
-[{
-  "id": 1,
-  "name": "Татьяна",
-  "lastName": "Бойраз",
-  "email": "tatyana_golikova@mail.ru",
-  "password": "0987654321Qq",
-  "refreshToken": null
-},
+[
   {
     "id": 2,
     "name": "Виктория",

@@ -6,17 +6,24 @@
   margin-top: 100px;
   .card{
     margin-bottom: 100px;
+    box-sizing: border-box;
+    width: 420px;
+    border-right: 1px solid rgba(0, 0, 0, 0.125);
     .card-body.register-card-body{
+      .login-box-msg,
+      .register-box-msg{
+        padding: 0 10px 10px;
+      }
       width: 350px;
-      height: 350px;
+
+
     }
     .input-group{
       height: 30px;
-      width: 200px;
+      width: 300px;
       margin-bottom: 10px;
       border-radius: 5px;
       outline: none;
-      background-color: #0c84ff;
       .form-control{
         width: 300px;
       }

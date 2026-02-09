@@ -15,12 +15,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "distFolder/diapole",
+            "outputPath": {
+              "base": "distFolder/diapole"
+            },
             "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": [
+              "src/polyfills.ts"
+            ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -28,19 +31,11 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/admin-lte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css",
-              "./node_modules/admin-lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css",
-              "./node_modules/admin-lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css",
-              "./node_modules/admin-lte/plugins/daterangepicker/daterangepicker.css",
-              "./node_modules/admin-lte/plugins/summernote/summernote-bs4.min.css",
               "src/styles.scss"
-
             ],
             "scripts": [
-
-              "./node_modules/admin-lte/plugins/chart.js/Chart.min.js",
-              "./node_modules/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js"
-            ]
+            ],
+            "browser": "src/main.ts"
           },
           "configurations": {
             "production": {
@@ -65,9 +60,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -106,7 +99,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+
             ],
             "scripts": []
           }

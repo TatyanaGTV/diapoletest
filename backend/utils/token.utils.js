@@ -3,7 +3,7 @@ const config = require('../config/config');
 const UserModel = require('../models/user.model');
 
 class TokenUtils {
-    static async generateTokens(user, rememberMe = false) {
+    static async generateTokens(user) {
         try {
             const payload = {id: user.id, email: user.email};
 
@@ -15,7 +15,8 @@ class TokenUtils {
             const refreshToken = jwt.sign(
                 payload,
                 config.secret,
-                {expiresIn: rememberMe ? "30d" : "1d"}
+              //  {expiresIn: rememberMe ? "30d" : "1d"}
+              {expiresIn:  "1d"}
             );
 
             if (user.refreshToken) {

@@ -1,21 +1,27 @@
-<p>login works!</p>
+
 <!-- поля для логинадолжны быть почта и пароль-->
-<div class="container-fluid"></div>
+<div class="container-fluid mt-5"></div>
 <div class="login-box d-flex justify-content-center align-items-center m-auto">
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg fa-2x font-weight-bold">Войти</p>
 
-      <form action="" method="post">
+      <form action="" method="post" [formGroup]="loginForm">
         <div class="input-group mb-4">
-          <input type="email" class="form-control border-right fs-3" placeholder="Email">
+          <input type="email" class="form-control border-right fs-5" placeholder="email"
+                 [ngStyle]="{'border-color': loginForm.get('email')?.invalid
+                 && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched) ? 'red': ''}"
+                 formControlName="email">
         </div>
         <div class="input-group mb-4">
-          <input type="password" class="form-control border-right fs-3" placeholder="Password">
+          <input type="password" class="form-control border-right fs-5" placeholder="Password"
+                 [ngStyle]="{'border-color': loginForm.get('password')?.invalid
+                 && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched) ? 'red': ''}"
+                 formControlName="password">
         </div>
         <div class="row">
           <div class="col-4 m-auto">
-            <button type="submit" class="btn btn-success btn-block m-auto">
+            <button type="submit" class="btn btn-success btn-block m-auto" [disabled]="loginForm.invalid"  (click)="login()">
               <i class="fa fa-magic" aria-hidden="true"></i>
             </button>
           </div>
@@ -28,7 +34,7 @@
         <a href="forgot-password.html">I forgot my password</a>
       </p>-->
       <p class="mb-0 mt-3 p-1 text-center">
-        <a routerLink="signup" class="link fa-1x ">У меня еще нет аккаунта</a>
+        <a routerLink="/signup" class="link fa-1x ">У меня еще нет аккаунта</a>
       </p>
     </div>
     <!-- /.login-card-body -->

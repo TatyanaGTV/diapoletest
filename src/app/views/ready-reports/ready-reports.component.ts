@@ -4,9 +4,10 @@ import {ReportService} from "../../shared/services/report.service";
 
 
 @Component({
-  selector: 'app-ready-reports',
-  templateUrl: './ready-reports.component.html',
-  styleUrls: ['./ready-reports.component.scss']
+    selector: 'app-ready-reports',
+    templateUrl: './ready-reports.component.html',
+    styleUrls: ['./ready-reports.component.scss'],
+    standalone: false
 })
 export class ReadyReportsComponent implements OnInit {
   newSolution = {};

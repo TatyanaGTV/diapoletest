@@ -1,16 +1,19 @@
-import {Component, Input, OnInit,} from '@angular/core';
+import {Component, Input, OnInit, model, signal} from '@angular/core';
 import {Router} from "@angular/router";
 import {PropertyType} from "../../types/property.type";
+import {string} from "joi";
+//import { FormsModule } from '@angular/forms';
 
 
 
 @Component({
-  selector: 'app-main-raport-page',
-  templateUrl: './main-raport-page.component.html',
-  styleUrls: ['./main-raport-page.component.scss']
+    selector: 'app-main-raport-page',
+    templateUrl: './main-raport-page.component.html',
+    styleUrls: ['./main-raport-page.component.scss'],
+    standalone: false
 })
 export class MainRaportPageComponent implements OnInit  {
-  @Input()count: number  = -1;
+  @Input()count: number  = 0;
   isChecked: boolean = false;
   clientName:string = '';
   birthDate: string = '';
@@ -19,12 +22,15 @@ export class MainRaportPageComponent implements OnInit  {
   medicalAnamnesis: string = '';
   socialAnamnesis: string = '';
 
+ // value = model('');
+//  clientName = signal('')
   prefrontalForehead = [
     'adequancy',
     'criticality',
     'exportMotivation',
     'emotionalState',
     'perfomance',
+    'understanding instructions',
     'following instructions',
     'doing tasks',
     'accepting help'
@@ -93,19 +99,24 @@ export class MainRaportPageComponent implements OnInit  {
       descriptionDinamic: []
     },
     {
-      name:  'following instructions',
+      name:  'understanding_instructions',
       point: this.count,
       buttonId: "011",
     },
     {
-      name:  'doing tasks',
+      name:  'following_instructions',
       point: this.count,
       buttonId: "012",
     },
     {
-      name:  'accepting help',
+      name:  'doing tasks',
       point: this.count,
       buttonId: "013",
+    },
+    {
+      name:  'accepting help',
+      point: this.count,
+      buttonId: "014",
       descriptionGeneral: [],
       descriptionNatureOfHelp: [],
       descriptionWhereHelp: [],
@@ -117,7 +128,8 @@ export class MainRaportPageComponent implements OnInit  {
       name: 'dinamicPracsis',
       point: this.count,
       buttonId: "pracsis_0",
-      description:[]
+      description:[],
+      descriptionSpeed: []
     },
     {
       name: 'grafics',
@@ -134,6 +146,12 @@ export class MainRaportPageComponent implements OnInit  {
     {
       name: 'positionsPracsis',
       point: this.count,
+      buttonId: "pracsis_03",
+      description:[]
+    },
+    {
+      name: 'positionsOralPracsis',
+      point: this.count,
       buttonId: "pracsis_3",
       description:[]
     },
@@ -147,7 +165,9 @@ export class MainRaportPageComponent implements OnInit  {
       name: 'ears_motors',
       point: this.count,
       buttonId: "pracsis_05",
-      description:[]
+      descriptionEval: [],
+      descriptionDoing: [],
+      descriptionDoingByInstruction: []
     },
     {
       name: 'eyes',
@@ -166,6 +186,13 @@ export class MainRaportPageComponent implements OnInit  {
       point: this.count,
       buttonId: "pracsis_08",
       description:[]
+    },
+    {
+      name: 'copy_kube',
+      point: this.count,
+      buttonId: "pracsis_09",
+      descriptionDrawingByInstruction:[],
+      descriptionCopy:[]
     },
 
   ]
@@ -210,6 +237,12 @@ export class MainRaportPageComponent implements OnInit  {
       name: 'copy gnosis',
       point: this.count,
       buttonId: "gnosis_05",
+      description:[]
+    },
+    {
+      name: 'copy_simple gnosis',
+      point: this.count,
+      buttonId: "gnosis_06",
       description:[]
     },
   ]
@@ -321,11 +354,11 @@ export class MainRaportPageComponent implements OnInit  {
     memory_count_6: null,
   }
   shulteForm = {
-    shulte_1_table: '',
-    shulte_2_table:'',
-    shulte_3_table:'',
-    shulte_4_table:'',
-    shulte_5_table:'',
+    shulte_table_1: '',
+    shulte_table_2:'',
+    shulte_table_3:'',
+    shulte_table_4:'',
+    shulte_table_5:'',
   }
   facesTimeForm = {
     facesTime_1: '',
@@ -499,11 +532,11 @@ buttons(){
 //отмечает инпут как чекнутый и записывает значение его в переменную
   inputChange(inputId: string ){
     let inputs = document.getElementsByClassName('inputs')
-    let inputsArr = Array.from(inputs)
 
+    if (inputs){
+    let inputsArr = Array.from(inputs)
     if (inputsArr){
     let definitedInput = inputsArr.find(item => item.id === inputId)
-      console.log(  definitedInput)
       if (definitedInput && !definitedInput.hasAttribute('checked') ){
         definitedInput.setAttribute('checked','checked')
         let inputValue:string | null  = '';
@@ -572,6 +605,7 @@ buttons(){
         definitedInput?.removeAttribute('checked')
       }
       }
+    }
 
     let pracsisInputs = Array.from( document.getElementsByClassName('inputs_pracsis'))
     if (pracsisInputs){
@@ -586,9 +620,15 @@ buttons(){
         }
         if (definitedInput.className === 'inputs_pracsis dinamic') {
           let dinamicPracsisItem = this.pracsis.find(item => item.name === 'dinamicPracsis');
-          if (dinamicPracsisItem  && dinamicPracsisItem .description && inputValue){
+          if (dinamicPracsisItem?.description && inputValue){
             dinamicPracsisItem.description.push(inputValue)
-            console.log(dinamicPracsisItem )
+            console.log(dinamicPracsisItem)
+          }
+        }
+        if (definitedInput.className === 'inputs_pracsis dinamic speed'){
+          let dinamicPracsisItem = this.pracsis.find(item => item.name === 'dinamicPracsis');
+          if (dinamicPracsisItem?.descriptionSpeed && inputValue){
+            dinamicPracsisItem.descriptionSpeed.push(inputValue)
           }
         }
         if (definitedInput.className === 'inputs_pracsis grafic') {
@@ -612,11 +652,39 @@ buttons(){
             console.log(positionsPracsisItem)
           }
         }
-        if (definitedInput.className === 'inputs_pracsis rithms') {
+        if (definitedInput.className === 'inputs_pracsis oralPositoin') {
+          let positionsOralPracsisItem = this.pracsis.find(item => item.name === 'positionsOralPracsis');
+          if (positionsOralPracsisItem  && positionsOralPracsisItem.description && inputValue){
+            positionsOralPracsisItem.description.push(inputValue)
+            console.log(positionsOralPracsisItem)
+          }
+        }
+        if (definitedInput.className === 'inputs_pracsis hedTry') {
+          let hedPositionsItem = this.pracsis.find(item => item.name === 'hed');
+          if (hedPositionsItem  && hedPositionsItem.description && inputValue){
+            hedPositionsItem.description.push(inputValue)
+            console.log(hedPositionsItem)
+          }
+        }
+        if (definitedInput.className === 'inputs_pracsis rithms evaluate') {
+          let ears_motors_evaluation = this.pracsis.find(item => item.name === 'ears_motors');
+          if (ears_motors_evaluation?.descriptionEval && inputValue){
+            ears_motors_evaluation.descriptionEval.push(inputValue)
+            console.log('1 '+ ears_motors_evaluation?.descriptionEval);
+          }
+        }
+        if (definitedInput.className === 'inputs_pracsis rithms doing'){
           let ears_motorsItem = this.pracsis.find(item => item.name === 'ears_motors');
-          if (ears_motorsItem  &&ears_motorsItem.description && inputValue){
-            ears_motorsItem.description.push(inputValue)
-            console.log(ears_motorsItem)
+          if (ears_motorsItem?.descriptionDoing && inputValue){
+            ears_motorsItem.descriptionDoing.push(inputValue)
+            console.log('2'+ ears_motorsItem.descriptionDoing);
+          }
+        }
+        if (definitedInput.className === 'inputs_pracsis rithms instruction') {
+          let ears_motors_instruction = this.pracsis.find(item => item.name === 'ears_motors');
+          if (ears_motors_instruction?.descriptionDoingByInstruction && inputValue) {
+            ears_motors_instruction.descriptionDoingByInstruction.push(inputValue)
+            console.log('3' + ears_motors_instruction.descriptionDoingByInstruction);
           }
         }
         if (definitedInput.className === 'inputs_pracsis eyesw') {
@@ -640,11 +708,27 @@ buttons(){
             console.log(choise_reactionItem)
           }
         }
+        if (definitedInput.className === 'inputs_pracsis copy_kube draw') {
+          let copySimpleItem = this.pracsis.find(item => item.name === 'copy_kube');
+          if (copySimpleItem?.descriptionDrawingByInstruction && inputValue){
+            copySimpleItem.descriptionDrawingByInstruction.push(inputValue)
+            console.log(copySimpleItem)
+          }
+        }
+        if (definitedInput.className === 'inputs_pracsis copy_kube') {
+          let copySimpleItem = this.pracsis.find(item => item.name === 'copy_kube');
+          if (copySimpleItem?.descriptionCopy && inputValue){
+            copySimpleItem.descriptionCopy.push(inputValue)
+            console.log(copySimpleItem)
+          }
+        }
+
       }
       else {
         definitedInput?.removeAttribute('checked')
       }
     }
+
     }
   inputChange2(input: any) {
     let input_id = input.getAttribute("id")
@@ -684,6 +768,9 @@ buttons(){
                 break;
               case 'inputs_gnosis copy':
                 item = this.gnosis.find(item => item.name === 'copy gnosis');
+                break;
+              case 'inputs_gnosis copy_simple':
+                item = this.gnosis.find(item => item.name === 'copy_simple gnosis');
                 break;
 
                 //память
@@ -795,12 +882,12 @@ buttons(){
 
 
   goToSummary(a: string, b: string, c:string, d: string,e : string, f: string, g: string): void{
-
+console.log(this.completedRaport)
     this.completedRaport.find((item) => {
       item.name === 'factInformation'
       this.clientName = a;
       item.clientName = this.clientName;
-    this.birthDate = b;
+      this.birthDate = b;
       item.birthDate = this.birthDate;
       this.searchDate = c;
       item.searchDate = this.searchDate;
@@ -842,6 +929,8 @@ buttons(){
       userSocAnam: this.socialAnamnesis
     }
     localStorage.setItem('generalAnamnesis',JSON.stringify(generalAnamnesis));
+    let generalDontGet = this.generalCharacteristic.filter(item => item.point === 0)
+    localStorage.setItem('dontGet',JSON.stringify(generalDontGet));
 
     let generalZero =  this.generalCharacteristic.filter(item => item.point === 1)
     localStorage.setItem('zero',JSON.stringify(generalZero));
@@ -855,7 +944,7 @@ buttons(){
     let generalArrWorse = this.generalCharacteristic.filter(item => item.point === 4)
     localStorage.setItem('worse',JSON.stringify(generalArrWorse));
 
-    if (this.shulteForm.shulte_1_table !== '' && this.shulteForm.shulte_2_table !=='' && this.shulteForm.shulte_3_table !==''){
+    if (this.shulteForm.shulte_table_1 !== '' && this.shulteForm.shulte_table_2 !=='' && this.shulteForm.shulte_table_3 !==''){
       localStorage.setItem('shulte',JSON.stringify(this.shulteForm))
     } else {
       localStorage.removeItem('shulte')
@@ -873,12 +962,23 @@ buttons(){
       localStorage.removeItem('facesWrongs')
     }
 
-    if (this.memoryForm.memory_count_1 !== null && this.memoryForm.memory_count_2 !== null && this.memoryForm.memory_count_3 !== null
-      && this.memoryForm.memory_count_4 !== null && this.memoryForm.memory_count_5 !== null){
+    if (this.memoryForm.memory_count_1 !== null && this.memoryForm.memory_count_2 !== null && this.memoryForm.memory_count_3 !== null){
       localStorage.setItem('memoryPoints',JSON.stringify(this.memoryForm))
     } else {
       localStorage.removeItem('memoryPoints')
     }
+
+    let dontGotPointResults = [];
+
+    for (let i = 5; i < this.completedRaport.length ; i++) {
+      if (this.completedRaport[i].results && (this.completedRaport[i].results as PropertyType[])){
+        let arr = (this.completedRaport[i].results as PropertyType[]).filter(item => item.point === 0)
+        if (arr.length > 0 )  {
+          dontGotPointResults.push(arr)
+        }
+      }
+    }
+    localStorage.setItem('dontGotResults',  JSON.stringify(dontGotPointResults));
 
     let zeroPointResults = [];
 
@@ -928,12 +1028,6 @@ buttons(){
 
     this.router.navigate(['raport'])
   }
-
-
-
-
-
-
 }
 
 

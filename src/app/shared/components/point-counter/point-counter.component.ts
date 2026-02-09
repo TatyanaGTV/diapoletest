@@ -1,9 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
-  selector: 'app-point-counter',
-  templateUrl: './point-counter.component.html',
-  styleUrls: ['./point-counter.component.scss']
+    selector: 'app-point-counter',
+    templateUrl: './point-counter.component.html',
+    styleUrls: ['./point-counter.component.scss'],
+    standalone: false
 })
 export class PointCounterComponent implements OnInit {
  // @Input()count: number  = 0;
@@ -52,11 +53,11 @@ export class PointCounterComponent implements OnInit {
   ngOnInit(): void {
   }
   countChange(){
-    if (this.count !== null && this.count >= 0)
+    if ( this.count)
       this.onCountChange.emit(this.count)
   }
   decreaseCount(button: any){
-    if ( this.count !==null && this.count >= 0){
+    if ( this.count > 0){
       console.log(button)
       this.count--
       this.countChange()
@@ -64,7 +65,7 @@ export class PointCounterComponent implements OnInit {
     }
   }
   increaseCount(button:any){
-    if ( this.count !==null && this.count < 4){
+    if ( this.count < 4){
       console.log(button)
       this.count++
       this.countChange()

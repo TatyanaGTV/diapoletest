@@ -1,4 +1,4 @@
-<p>signup works!</p>
+
 <!-- поля для регистрации должны быть:
     "name":
     "lastName":
@@ -12,23 +12,41 @@
 
 </head>
 
-<div class="register-box d-flex justify-content-center align-items-center m-auto">
+<div class="register-box d-flex justify-content-center align-items-center m-auto mt-5">
   <div class="card">
     <div class="card-body register-card-body">
       <p class="login-box-msg fa-2x font-weight-bold">Зарегистрироваться</p>
 
-      <form action="./index.html" method="post">
-        <div class="input-group mb-3">
-          <input type="text" class="form-control border-right fs-3" placeholder="Имя и Фамилия">
+      <form action="./index.html" method="post" [formGroup]="signupForm">
+        <div class="input-group mb-3 ">
+          <input type="text" class="form-control border-right fs-5" placeholder="Имя"
+                 [ngStyle]="{'border-color': signupForm.get('name')?.invalid
+                 && (signupForm.get('name')?.dirty || signupForm.get('name')?.touched) ? 'red': ''}"
+                 formControlName="name">
+        </div>
+        <div class="input-group mb-3 ">
+          <input type="text" class="form-control border-right fs-5" placeholder="Фамилия"
+                 [ngStyle]="{'border-color': signupForm.get('lastName')?.invalid
+                 && (signupForm.get('lastName')?.dirty || signupForm.get('lastName')?.touched) ? 'red': ''}"
+                 formControlName="lastName">
         </div>
         <div class="input-group mb-3">
-          <input type="email" class="form-control border-right fs-3" placeholder="Email">
+          <input type="email" class="form-control border-right fs-5" placeholder="Email"
+                 [ngStyle]="{'border-color': signupForm.get('email')?.invalid
+                 && (signupForm.get('email')?.dirty || signupForm.get('email')?.touched) ? 'red': ''}"
+                 formControlName="email">
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control border-right fs-3" placeholder="Пароль">
+          <input type="password" class="form-control border-right fs-5" placeholder="Пароль"
+                 [ngStyle]="{'border-color': signupForm.get('password')?.invalid
+                 && (signupForm.get('password')?.dirty || signupForm.get('password')?.touched) ? 'red': ''}"
+                 formControlName="password">
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control border-right fs-3" placeholder="Повторить пароль">
+          <input type="password" class="form-control border-right fs-5" placeholder="Повторить пароль"
+                 [ngStyle]="{'border-color': signupForm.get('passwordRepeat')?.invalid
+                 && (signupForm.get('passwordRepeat')?.dirty || signupForm.get('passwordRepeat')?.touched) ? 'red': ''}"
+                 formControlName="passwordRepeat">
         </div>
         <div class="row">
          <!-- <div class="col-8">
@@ -41,7 +59,7 @@
           </div>-->
           <!-- /.col -->
           <div class="col-6 m-auto mt-1">
-            <button type="submit" class="btn btn-success btn-block">
+            <button type="submit" class="btn btn-success btn-block" [disabled]="signupForm.invalid" (click)="signup()">
               <i class="fa fa-id-card" aria-hidden="true"></i>
             </button>
           </div>
@@ -49,7 +67,7 @@
         </div>
       </form>
   <div class="mb-0 mt-3 p-1 text-center" >
-    <a routerLink="login" class="link fa-1x">У меня уже есть аккаунт</a>
+    <a routerLink="/login" class="link fa-1x">У меня уже есть аккаунт</a>
   </div>
 
     </div>

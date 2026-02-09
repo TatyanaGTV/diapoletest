@@ -45,7 +45,7 @@ class AuthController {
             UserModel.create(user);
 
             res.status(201).json({
-                user: {id: user.id, email: user.email, name: user.name, lastName: user.lastName},
+                user: {id: user.id, name: user.name, lastName: user.lastName, email: user.email},
             });
         } catch (err) {
             console.log(err);
@@ -82,7 +82,7 @@ class AuthController {
                 return res.status(401).json({error: true, message: "Invalid email or password"});
             }
 
-            const {accessToken, refreshToken} = await TokenUtils.generateTokens(user, req.body.rememberMe);
+            const {accessToken, refreshToken} = await TokenUtils.generateTokens(user);
 
             res.status(200).json({
                 tokens: {
@@ -119,7 +119,7 @@ class AuthController {
         try {
             const {tokenDetails} = await TokenUtils.verifyRefreshToken(req.body.refreshToken);
             const user = UserModel.findOne({email: tokenDetails.email});
-            const {accessToken, refreshToken} = await TokenUtils.generateTokens(user, req.body.rememberMe);
+            const {accessToken, refreshToken} = await TokenUtils.generateTokens(user);
 
             res.status(200).json({
                 tokens: {

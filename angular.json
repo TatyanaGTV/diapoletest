@@ -18,8 +18,9 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": {
-              "base": "distFolder"
+              "base": "docs"
             },
+            "baseHref": "/diapoletest/",
             "index": "src/index.html",
             "polyfills": [
               "src/polyfills.ts"

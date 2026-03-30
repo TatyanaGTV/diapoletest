@@ -16,8 +16,8 @@ export class MainPictureComponent {
 
   ngOnInit(): void {
   }
-  enter(){
+ /* enter(){
     this.router.navigate(['login'])
 
-  }
+  }*/
 }

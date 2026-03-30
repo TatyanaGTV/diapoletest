@@ -14988,14 +14988,14 @@ var init_jspdf_es_min = __esm({
       }, t2.loadImageFile = t2.loadFile;
     }(E.API), function(e) {
       function n() {
-        return (i.html2canvas ? Promise.resolve(i.html2canvas) : import("./html2canvas.esm-X2LUDEIK.js")).catch(function(t2) {
+        return (i.html2canvas ? Promise.resolve(i.html2canvas) : import("./html2canvas.esm-7AEQJHOM.js")).catch(function(t2) {
           return Promise.reject(new Error("Could not load html2canvas: " + t2));
         }).then(function(t2) {
           return t2.default ? t2.default : t2;
         });
       }
       function r() {
-        return (i.DOMPurify ? Promise.resolve(i.DOMPurify) : import("./purify.es-IADWFBUO.js")).catch(function(t2) {
+        return (i.DOMPurify ? Promise.resolve(i.DOMPurify) : import("./purify.es-5UBFEETJ.js")).catch(function(t2) {
           return Promise.reject(new Error("Could not load dompurify: " + t2));
         }).then(function(t2) {
           return t2.default ? t2.default : t2;
@@ -16169,7 +16169,7 @@ var init_jspdf_es_min = __esm({
         ignoreAnimation: true,
         ignoreDimensions: true
       }, d2 = this;
-      return (i.canvg ? Promise.resolve(i.canvg) : import("./index.es-RAT5ZODB.js")).catch(function(t3) {
+      return (i.canvg ? Promise.resolve(i.canvg) : import("./index.es-LP4QEVBD.js")).catch(function(t3) {
         return Promise.reject(new Error("Could not load canvg: " + t3));
       }).then(function(t3) {
         return t3.default ? t3.default : t3;

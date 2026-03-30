@@ -421,7 +421,7 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
       this.giveValuesFromObjectiveBlokForMakingRaport();
     }
 
-    let arr1: GettingPropertyType[] = this.objectiveZeroSymptoms ;
+    /*let arr1: GettingPropertyType[] = this.objectiveZeroSymptoms ;
     let arr2:GettingPropertyType[]  = this.objectiveNotBadSymptoms;
     let arr3:GettingPropertyType[]  = this.objectiveBadSymptoms;
     let arr4:GettingPropertyType[]  = this.objectiveWorseSymptoms;
@@ -432,7 +432,7 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
         console.log(arr1[i])
 
       }
-    }
+    }*/
 
   }
 
@@ -540,7 +540,8 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
               .filter((word: string) => reactionsRemovw.includes(word))
             this.reaction = reactions;
             this.emotional_stateDescription = emotionalStateItem.description.toString().toLowerCase();
-            this.regulation = 'недостаточен на уровне регуляции и контроля психической деятельности';
+         //   this.regulation = 'достаточен';
+
           }
         }
 
@@ -609,7 +610,9 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
           }
         }
         if (regulationFromGeneral?.length >= 1 && !this.regulation){
+          console.log('tis works')
           this.regulation = 'достаточен'
+          console.log( this.regulation )
         }
       }
 
@@ -684,7 +687,7 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
                  .filter((word: string) => reactionsToFilter.includes(word));
                this.reaction = reactions;
                this.emotional_stateDescription = emotionalStateItemNotBad.description.toString().toLowerCase();
-               this.regulation = 'недостаточен на уровне регуляции и контроля психической деятельности';
+               //this.regulation = 'недостаточен на уровне регуляции и контроля психической деятельности';
              }
            }
 
@@ -830,7 +833,7 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
               .filter((word:string) => reactionsRemovw.includes(word))
             this.reaction = reactions;
             this.emotional_stateDescription = emotionalStateItemBad.description.toString().toLowerCase();
-            this.regulation = 'недостаточен на уровне регуляции и контроля психической деятельности';
+          //  this.regulation = 'недостаточен на уровне регуляции и контроля психической деятельности';
           }
         }
 
@@ -1505,7 +1508,10 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
         if (programMovementsProblems?.length >= 1) {
           this.programming = 'на уровне движений и действий'
           console.log(this.programming)
-          this.regulation = '';
+          if (!this.regulation){
+            this.regulation = '';
+          }
+
         }
         let programMentalProblems = descriptionsFromNotBadSymptomsArr_flatted.filter(item => item?.trimEnd() == 'трудности построения алгоритма решения задачи'
           || item?.trimEnd() == 'не может построить фигуру самостоятельно по картинке, необходима организующая помощь');
@@ -1513,7 +1519,9 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
         if (programMentalProblems?.length >= 1) {
           this.mentalProgramming = 'психической деятельности'
           console.log(this.mentalProgramming)
-          this.regulation = '';
+          if (!this.regulation){
+            this.regulation = '';
+          }
         }
      //   let programLogicProblems = descriptionsFromNotBadSymptomsArr_flatted.filter(item => item.trimEnd() === 'трудности переноса'
       //    || item.trimEnd() === 'исключает по ситуативному признаку');
@@ -1551,7 +1559,9 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
         if (controlProblems?.length >= 1) {
           this.control = 'трудностями контроля'
           console.log(this.control)
-          this.regulation = '';
+          if (!this.regulation){
+            this.regulation = '';
+          }
         }
         let activateProblemsMinus = descriptionsFromNotBadSymptomsArr_flatted.filter((problem: string) => problem?.trimEnd() === 'истощаемость' || problem?.trimEnd() === 'повышенная отвлекаемость от заданий');
         if (activateProblemsMinus?.length >= 1) {
@@ -1849,7 +1859,9 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
         if (programMovementsProblems?.length >= 1) {
           this.programming2 = 'на уровне движений и действий'
           console.log(this.programming)
-          this.regulation = '';
+          if (!this.regulation){
+            this.regulation = '';
+          }
         }
         let programMentalProblems = descriptionsFromBadSymptomsArr_flatted.filter(item => item?.trimEnd() === 'трудности построения алгоритма решения задачи'
           || item?.trimEnd() === 'не может построить фигуру самостоятельно по картинке, необходима организующая помощь');
@@ -1864,7 +1876,9 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
        // }
         if (programmingActionsProblems_bad?.length >= 1) {
           this.mentalProgramming2 = 'на уровне программирования психической деятельности';
-          this.regulation = '';
+          if (!this.regulation){
+            this.regulation = '';
+          }
         }
 
 
@@ -1909,7 +1923,9 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
         if (controlProblems?.length >= 1) {
           this.control2 = 'трудностями контроля'
           console.log(this.control2)
-          this.regulation = '';
+          if (!this.regulation){
+            this.regulation = '';
+          }
         }
         //нейродинамика
 
@@ -2198,7 +2214,9 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
         if (programProblems?.length >= 1) {
           this.programming3 = 'характеризуется грубой недостаточностью в звене программировани психической деятельности'
           console.log(this.programming)
-          this.regulation = '';
+          if (!this.regulation){
+            this.regulation = '';
+          }
         }
         let dinamicProblems = descriptionsFromWorseSymptomsArr_flatted.filter((problem: string) => problem === 'персеверации'
           || problem === 'трудности переключения с одного движения на другое' || problem === 'скандированность' || problem === 'с отрывом руки от листа'
@@ -2222,7 +2240,9 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
         if (controlProblems?.length >= 1) {
           this.control3 = 'грубыми нарушениями контроля'
           console.log(this.control3);
-          this.regulation = '';
+          if (!this.regulation){
+            this.regulation = '';
+          }
         }
       }
     }

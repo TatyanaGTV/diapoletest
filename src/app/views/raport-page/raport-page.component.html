@@ -158,8 +158,8 @@
           <span *ngIf="operation_memory !==''"> {{operation_memory}},</span>
           <span *ngIf="ram_value !==''"> {{ram_value}},</span>
 
-        <!--  <span *ngIf="regulation">{{regulation}},</span>  <span *ngIf="regulation2">{{regulation2}},</span>
-               <span *ngIf="regulation3">{{regulation3}}.</span>--> </span>
+          <span *ngIf="regulation"> Регуляторный компонент {{regulation}},</span>  <span *ngIf="regulation2">{{regulation2}},</span>
+               <span *ngIf="regulation3">{{regulation3}}.</span> </span>
             <!--  <span *ngIf="!attention && !switchOfMovements"><strong>Нейродинамический компонент </strong> без особенностей.</span>-->
               <span *ngIf="shultePoints && shultePoints !== '' "> Таблицы Шульте {{shultePoints}}.  </span>
               <span *ngIf="attention">При выполнении пробы отмечается {{attention}}. </span>

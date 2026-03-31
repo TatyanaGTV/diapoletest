@@ -7,6 +7,8 @@ import {Router} from "@angular/router";
 import {ReportService} from "../../shared/services/report.service";
 import {GettingPropertyType} from "../../types/gettingProperty.type";
 import html2pdf from "html2pdf.js";
+import {string} from "joi";
+import {FactorType} from "../../types/factor.type";
 
 
 type DescriptionContextKey = 'calculating' | 'solving_tasks' | 'solving_problems' | 'analog' | 'exclude_4';
@@ -191,6 +193,22 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
   operation_memory: string = '';
 
   solution = {};
+// neuropsycological factors//
+
+
+  spaceFactor:FactorType = [];
+  neurodinamicFactor:FactorType = [];
+  reguloFactor:FactorType = [];
+  kineticFactor:FactorType [] = [];
+  kinesteticFactor:FactorType [] = [];
+  gemisphereFactor:FactorType [] = [];
+  phonematicFactor:FactorType [] = [];
+  simultAnFactor:FactorType [] = [];
+
+//мфактор в диаграмму после сравнения//
+
+ // regFactorAfterCompare
+
 
  /* solution = {
     sol_complaints: this.complaints,
@@ -475,11 +493,11 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
 
       //обработка 1 баллов общий блок
       if (this.zeroSymptoms && this.zeroSymptoms.length > 0 ){
-        let regulationFromGeneral: string [] = [];
+        //let regulationFromGeneral: string [] = [];
         if (this.zeroSymptoms.find((a: PropertyType) => a.name === 'contact')) {
           if (!this.contact){
             this.contact = 'доступен';
-            regulationFromGeneral.push(this.contact);
+           //
           }
         }
 
@@ -498,21 +516,21 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
        if ( this.zeroSymptoms.find((a: PropertyType) => a.name === 'orientation')){
          if (!this.orientation){
            this.orientation = 'Ориентация в месте, времени, собственной личности сохранна';
-           regulationFromGeneral.push(this.orientation);
+         //  regulationFromGeneral.push(this.orientation);
          }
        }
 
        if (this.zeroSymptoms.find((a: PropertyType) => a.name === ('criticality'))) {
           if (!this.criticality){
             this.criticality = 'Критичность сохранна';
-            regulationFromGeneral.push(this.criticality);
+          //  regulationFromGeneral.push(this.criticality);
           }
         }
 
         if (this.zeroSymptoms.find((a: PropertyType) => a.name === ('adequancy'))){
           if (!this.adequancy){
             this.adequancy = 'адекватно ситуации';
-            regulationFromGeneral.push(this.adequancy);
+           // regulationFromGeneral.push(this.adequancy);
           }
         }
 
@@ -520,14 +538,14 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
       if (this.zeroSymptoms.find((a: PropertyType) => a.name === 'exportMotivation'))  {
         if (!this.expert_motivation){
           this.expert_motivation = 'формируется';
-          regulationFromGeneral.push(this.expert_motivation);
+         // regulationFromGeneral.push(this.expert_motivation);
         }
       }
 
        if (this.zeroSymptoms.find((a: PropertyType) => a.name === ('interest'))) {
          if (!this.interest){
            this.interest = 'Ребенок заинтересован в результатах выполнения заданий';
-           regulationFromGeneral.push( this.interest);
+          // regulationFromGeneral.push( this.interest);
          }
        }
 
@@ -550,13 +568,13 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
             if (!this.instructionUnderstanding) {
               console.log(2)
               this.instructionUnderstanding = 'усваивает чаще с первого раза';
-              regulationFromGeneral.push( this.instructionUnderstanding);
+             // regulationFromGeneral.push( this.instructionUnderstanding);
            }
           }
           if (this.zeroSymptoms.find((a: PropertyType) => a.name === 'following_instructions')){
             if (!this.instructionFollowing) {
               this.instructionFollowing = 'удерживает самостоятельно в процессе выполнения заданий';
-              regulationFromGeneral.push( this.instructionFollowing);
+            //  regulationFromGeneral.push( this.instructionFollowing);
             }
           }
 
@@ -564,27 +582,27 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
         if (this.zeroSymptoms.find((a: PropertyType) => a.name === 'doing tasks')){
           if (!this.tasks) {
             this.tasks = 'выполняет все и в полном объеме';
-            regulationFromGeneral.push(this.tasks);
+            //regulationFromGeneral.push(this.tasks);
           }
         }
         if (this.zeroSymptoms.find((a: PropertyType) => a.name === 'accepting help')){
           let helpItemZero = this.zeroSymptoms.find((a: PropertyType) => a.name === 'accepting help')
           if ( helpItemZero?.descriptionGeneral?.length > 0) {
             this.help.push(helpItemZero.descriptionGeneral.toString());
-            regulationFromGeneral.push(helpItemZero.descriptionGeneral.toString());
+           // regulationFromGeneral.push(helpItemZero.descriptionGeneral.toString());
           }
           if ( helpItemZero?.descriptionNatureOfHelp?.length > 0) {
             this.helpDescription.push(helpItemZero.descriptionNatureOfHelp.toString()) ;
-            regulationFromGeneral.push(helpItemZero.descriptionNatureOfHelp.toString());
+           // regulationFromGeneral.push(helpItemZero.descriptionNatureOfHelp.toString());
           }
           if (helpItemZero?.descriptionWhereHelp?.length > 0) {
             this.helpPlace = helpItemZero.descriptionWhereHelp.toString()
-            regulationFromGeneral.push(this.helpPlace);
+           // regulationFromGeneral.push(this.helpPlace);
           }
           if (helpItemZero?.descriptionEffectOfHelp?.length > 0) {
             let effectOfHelp: string = helpItemZero.descriptionEffectOfHelp.toString()
             this.helpDescription.push(effectOfHelp) ;
-            regulationFromGeneral.push(effectOfHelp);
+           // regulationFromGeneral.push(effectOfHelp);
           }
         }
 
@@ -609,11 +627,12 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
             this.neurodinamic = 'достаточен';
           }
         }
-        if (regulationFromGeneral?.length >= 1 && !this.regulation){
+        /*if (regulationFromGeneral?.length >= 1 && !this.regulation){
           console.log('tis works')
           this.regulation = 'достаточен'
           console.log( this.regulation )
-        }
+        }*/
+        this.regulation = 'достаточен'
       }
 
       //обработка 2 балл общий блок
@@ -623,15 +642,21 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
         if (!this.contact) {
           this.contact = 'доступен, требуется некоторое время';
           regulationFromGeneral.push(this.contact);
+          this.reguloFactor.push(this.contact);
+          this.neurodinamicFactor.push(this.contact);
         }
       }
       if (this.notBadSymptoms.find((a: PropertyType) => a.name === 'entranceToConversation')) {
         let entranceItem = this.notBadSymptoms.find((a: PropertyType) => a.name === 'entranceToConversation');
         if (entranceItem) {
           this.entranceDescription = entranceItem.description.toString().toLowerCase();
+        //  this.reguloFactor.push(this.entranceDescription);
+        //  this.neurodinamicFactor.push(this.entranceDescription);
         }
         if (!this.speechInitiation){
           this.speechInitiation = 'снижена';
+          this.reguloFactor.push(this.speechInitiation);
+          this.neurodinamicFactor.push(this.speechInitiation);
         }
       }
 
@@ -639,16 +664,21 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
         if (!this.orientation) {
           this.orientation = 'Общая осведомленность соответствует возрасту';
           regulationFromGeneral.push(this.orientation);
+          this.neurodinamicFactor.push(this.orientation);
+          this.spaceFactor.push(this.orientation);
         }
         let orientationItem = this.notBadSymptoms.find((a: PropertyType) => a.name === 'orientation');
         if (orientationItem?.description?.length > 0) {
           this.orientationDescription = orientationItem.description.toString().toLowerCase();
+          this.neurodinamicFactor.push(this.orientationDescription);
+          this.spaceFactor.push(this.orientationDescription);
         }
       }
            if (this.notBadSymptoms.find((a: PropertyType) => a.name === 'criticality')) {
              if (!this.criticality){
                this.criticality = 'Критичность сохранна,необходима незначительная регулирующая помощь';
                regulationFromGeneral.push(this.criticality);
+               this.reguloFactor.push( this.criticality);
              }
            }
 
@@ -656,10 +686,12 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
              if (!this.adequancy) {
                this.adequancy = 'в целом адекватно';
                regulationFromGeneral.push(this.adequancy);
+               this.reguloFactor.push( this.adequancy);
              }
              let adequancyItem = this.notBadSymptoms.find((a: PropertyType) => a.name === 'adequancy');
              if (adequancyItem?.description?.length > 0) {
                this.adequancyDescription = adequancyItem.description.toString().toLowerCase();
+               this.reguloFactor.push( this.adequancyDescription );
              }
            }
 
@@ -667,6 +699,7 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
              if (!this.expert_motivation) {
                this.expert_motivation = 'формируется';
                regulationFromGeneral.push(this.expert_motivation);
+               this.reguloFactor.push(this.expert_motivation);
              }
            }
 
@@ -674,6 +707,8 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
              if (!this.interest) {
                this.interest = 'Ребенок заинтересован в результатах выполнения заданий';
                regulationFromGeneral.push(this.interest);
+               this.reguloFactor.push(this.interest );
+               this.neurodinamicFactor.push( this.interest);
              }
            }
 
@@ -688,6 +723,8 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
                this.reaction = reactions;
                this.emotional_stateDescription = emotionalStateItemNotBad.description.toString().toLowerCase();
                //this.regulation = 'недостаточен на уровне регуляции и контроля психической деятельности';
+               this.neurodinamicFactor.push(this.emotional_stateDescription);
+               this.reguloFactor.push(this.emotional_stateDescription);
              }
            }
 
@@ -695,12 +732,15 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
              if (!this.instructionUnderstanding) {
                this.instructionUnderstanding = 'усваивает со 2-го-3-го раза';
                regulationFromGeneral.push(this.instructionUnderstanding);
+               this.neurodinamicFactor.push(this.instructionUnderstanding);
+               this.reguloFactor.push(this.instructionUnderstanding);
              }
            }
            if (this.notBadSymptoms.find((a: PropertyType) => a.name ==='following_instructions')){
               if (!this.instructionFollowing) {
                 this.instructionFollowing = 'удерживает самостоятельно в процессе выполнения заданий';
                 regulationFromGeneral.push(this.instructionFollowing);
+                this.reguloFactor.push(this.instructionUnderstanding);
               }
            }
 
@@ -708,6 +748,7 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
              if (!this.tasks) {
                this.tasks = 'выполняет все и в полном объеме,с самокоррекцией';
                regulationFromGeneral.push(this.tasks);
+               this.reguloFactor.push(this.tasks);
              }
            }
 
@@ -715,15 +756,23 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
              let helpItemnotBad = this.notBadSymptoms.find((a: PropertyType) => a.name === 'accepting help');
              if (helpItemnotBad?.descriptionGeneral?.length > 0) {
                this.help.push(helpItemnotBad.descriptionGeneral.toString());
+               this.reguloFactor.push(this.help);
+               this.neurodinamicFactor.push(this.help);
              }
              if (helpItemnotBad?.descriptionNatureOfHelp?.length > 0) {
                this.helpDescription.push(helpItemnotBad.descriptionNatureOfHelp.toString());
+               this.reguloFactor.push(this.helpDescription);
+               this.neurodinamicFactor.push(this.helpDescription);
              }
              if (helpItemnotBad?.descriptionWhereHelp?.length > 0) {
                this.helpPlace = helpItemnotBad.descriptionWhereHelp.toString();
+               this.reguloFactor.push(this.helpPlace);
+               this.neurodinamicFactor.push(this.helpPlace);
              }
              if (helpItemnotBad && helpItemnotBad.descriptionEffectOfHelp && helpItemnotBad.descriptionEffectOfHelp.length > 0) {
                this.helpDescription.push(helpItemnotBad.descriptionEffectOfHelp.toString());
+               this.reguloFactor.push(this.helpDescription);
+               this.neurodinamicFactor.push(this.helpDescription);
              }
            }
 
@@ -742,6 +791,10 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
                this.workDinamic.includes('с тенденцией к истощению' ) || this.workDinamic.includes('с тенденцией к врабатываемости')  ||
                this.workDinamic.includes('повышенная отвлекаемость от заданий'))){
                this.neurodinamic = 'дефицитарен';
+               this.neurodinamicFactor.push(this.neurodinamic);
+               if ( this.workDinamic.includes('с тенденцией к врабатываемости')  || this.workDinamic.includes('повышенная отвлекаемость от заданий')){
+                 this.reguloFactor.push(this.neurodinamic);
+               }
              }
 
             /* if (this.workTempo === 'замедленный' || this.workTempo === 'ускоренный' || this.workDinamic === 'неравномерная' ||
@@ -755,6 +808,13 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
       if (regulationFromGeneral?.length >= 1 && !this.regulation){
         this.regulation = 'достаточен'
       }
+      console.log(this.reguloFactor);
+      console.log(this.neurodinamicFactor);
+      console.log(regulationFromGeneral);
+      console.log(this.regulation);
+      console.log(this.help);
+      console.log(this.helpDescription);
+      console.log(this.entranceDescription);
          }
 
 
@@ -763,15 +823,18 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
       //обработка 3 балла общий блок
 
       if (this.badSymptoms && this.badSymptoms.length > 0) {
+        let regulationFromGeneral_bad: string | string [] = [];
         if (this.badSymptoms.find((a: PropertyType) => a.name === 'contact')){
           if (!this.contact){
             this.contact = 'доступен частично. Контакт неустойчивый';
+            regulationFromGeneral_bad.push(this.contact);
           }
         }
 
         if (this.badSymptoms.find((a: PropertyType) => a.name === 'entranceToConversation')) {
           if (!this.conversation) {
             this.conversation = 'неохотно';
+            regulationFromGeneral_bad.push(this.conversation);
           }
           let entranceItem = this.badSymptoms.find((a: PropertyType) => a.name === 'entranceToConversation')
           console.log(entranceItem)
@@ -780,6 +843,7 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
           }
             if (!this.speechInitiation){
               this.speechInitiation = 'снижена';
+              regulationFromGeneral_bad.push( this.speechInitiation);
             }
 
         }
@@ -787,26 +851,31 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
         if (this.badSymptoms.find((a: PropertyType) => a.name === 'orientation')){
           if (!this.orientation){
             this.orientation = 'Общая осведомленность снижена';
+            regulationFromGeneral_bad.push(this.orientation);
           }
           let orientationItem = this.badSymptoms.find((a: PropertyType) => a.name === 'orientation')
           if (orientationItem?.description?.length >0) {
             this.orientationDescription = orientationItem.description.toString().toLowerCase();
+         //   regulationFromGeneral_bad.push(this.orientationDescription);
           }
         }
 
         if ( this.badSymptoms.find((a: PropertyType) => a.name ==='criticality')) {
           if (!this.criticality) {
             this.criticality = 'Критичность снижена';
+            regulationFromGeneral_bad.push(this.criticality);
           }
         }
           if (this.badSymptoms.find((a: PropertyType) => a.name ==='adequancy')){
             if (!this.adequancy){
               this.adequancy = 'неадекватно';
+              regulationFromGeneral_bad.push(this.adequancy);
             }
             let adequancyItem = this.badSymptoms.find((item: PropertyType) => item.name === 'adequancy')
             console.log(adequancyItem)
             if (adequancyItem && adequancyItem.description && adequancyItem.description.length >0) {
               this.adequancyDescription = adequancyItem.description.toString().toLowerCase();
+          //    regulationFromGeneral_bad.push(this.adequancyDescription);
             }
           }
 
@@ -815,12 +884,14 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
         if (this.badSymptoms.find((a: PropertyType) => a.name === 'exportMotivation')){
           if (!this.expert_motivation){
             this.expert_motivation = 'снижена';
+            regulationFromGeneral_bad.push(this.expert_motivation);
           }
         }
 
         if  (this.badSymptoms.find((a: PropertyType) => a.name ==='interest')){
           if (!this.interest){
             this.interest = 'Заинтересованность в результатах выполнения заданий снижена';
+            regulationFromGeneral_bad.push(this.interest);
           }
         }
 
@@ -833,6 +904,7 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
               .filter((word:string) => reactionsRemovw.includes(word))
             this.reaction = reactions;
             this.emotional_stateDescription = emotionalStateItemBad.description.toString().toLowerCase();
+           // regulationFromGeneral.push(this.emotional_stateDescription);
           //  this.regulation = 'недостаточен на уровне регуляции и контроля психической деятельности';
           }
         }
@@ -840,18 +912,21 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
         if (this.badSymptoms.find((a: PropertyType) => a.name === 'understanding_instructions')){
           if (!this.instructionUnderstanding){
             this.instructionUnderstanding = 'усваивает со 2-го-3-го раза с развернутым разъяснением';
+            regulationFromGeneral_bad.push(this.instructionUnderstanding);
           }
         }
 
         if (this.badSymptoms.find((a: PropertyType) => a.name ==='following_instructions')){
           if (!this.instructionFollowing) {
             this.instructionFollowing = 'самостоятельно удерживает с трудом, необходима помощь со стороны обследующего';
+            regulationFromGeneral_bad.push(this.instructionFollowing);
           }
         }
 
         if (this.badSymptoms.find((a: PropertyType) => a.name ==='doing tasks')){
           if (!this.tasks){
             this.tasks = 'выполняет не все и не в полном объеме';
+            regulationFromGeneral_bad.push(this.tasks);
           }
         }
 
@@ -859,12 +934,16 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
           let helpItemBad = this.badSymptoms.find((a: PropertyType) => a.name === 'accepting help')
           if (helpItemBad?.descriptionGeneral?.length > 0) {
             this.help.push(helpItemBad.descriptionGeneral.toString());
+           // regulationFromGeneral.push();
           }
           if (helpItemBad?.descriptionNatureOfHelp?.length > 0) {
+
             this.helpDescription.push(helpItemBad.descriptionNatureOfHelp.toString()) ;
+           // regulationFromGeneral.push();
           }
           if (helpItemBad?.descriptionWhereHelp?.length > 0) {
             this.helpPlace = helpItemBad.descriptionWhereHelp.toString();
+           // regulationFromGeneral.push();
           }
           /* if (helpItemBad && helpItemBad.descriptionEffectOfHelp && helpItemBad.descriptionEffectOfHelp.length > 0) {
              this.helpDescription.push(helpItemBad.descriptionEffectOfHelp.toString()) ;
@@ -875,20 +954,26 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
           let workProperties = this.badSymptoms.find((a: PropertyType) => a.name === 'perfomance');
           if (workProperties?.descriptionTempo) {
             this.workTempo = workProperties.descriptionTempo.length >0? workProperties.descriptionTempo.toString() : '';
+            regulationFromGeneral_bad.push(this.workTempo);
           }
           if (workProperties?.descriptionDinamic ){
             this.workDinamic = workProperties.descriptionDinamic.length >0? workProperties.descriptionDinamic.toString() : '';
+
           }
           if ( this.workTempo.length >= 1 && (this.workTempo.includes('замедленный') || this.workTempo.includes('ускоренный'))) {
             this.neurodinamic = 'дефицитарен';
+            regulationFromGeneral_bad.push(this.neurodinamic);
           } else if (this.workDinamic.length >= 1 && (this.workDinamic.includes('неравномерная')||
             this.workDinamic.includes('с тенденцией к истощению' ) || this.workDinamic.includes('с тенденцией к врабатываемости')  ||
             this.workDinamic.includes('повышенная отвлекаемость от заданий'))){
             this.neurodinamic = 'дефицитарен';
+            regulationFromGeneral_bad.push(this.neurodinamic);
+            regulationFromGeneral_bad.push(this.workDinamic);
+
           }
         }
         if (!this.regulation){
-          this.regulation = 'выражено недостаточен на уровне регуляции и контроля психической деятельности'
+          this.regulation = 'выраженно недостаточен на уровне регуляции и контроля психической деятельности'
         }
         }
 

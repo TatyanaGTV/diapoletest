@@ -16,7 +16,7 @@ app.use("/api", authRoutes);
 app.use("/api/diagnosis_conclusion", diagnosisConclusionRoutes);
 
 
-app.listen('3000', () => console.log(`Server started`));
+app.listen('8000', () => console.log(`Server started`));
 
 
 

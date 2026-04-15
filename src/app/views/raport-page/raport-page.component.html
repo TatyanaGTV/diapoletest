@@ -154,13 +154,14 @@
           <span *ngIf="mobility !==''">{{mobility}},</span>
                 <span *ngIf="mobility2 !==''">{{mobility2}},</span><span *ngIf="mobility3 !==''">{{mobility3}},</span>
           <span *ngIf="minusMobility2 !==''"> {{minusMobility2}},</span>
-          <span *ngIf="sinus !==''"> {{sinus}},</span> <span *ngIf="sinus2 !==''"> {{sinus2}}.</span>
+          <span *ngIf="sinus !==''"> {{sinus}},</span> <span *ngIf="sinus2 !==''"> {{sinus2}}.</span></span>
           <span *ngIf="operation_memory !==''"> {{operation_memory}},</span>
           <span *ngIf="ram_value !==''"> {{ram_value}},</span>
 
-          <span *ngIf="regulation"> Регуляторный компонент {{regulation}},</span>  <span *ngIf="regulation2">{{regulation2}},</span>
-               <span *ngIf="regulation3">{{regulation3}}.</span> </span>
-            <!--  <span *ngIf="!attention && !switchOfMovements"><strong>Нейродинамический компонент </strong> без особенностей.</span>-->
+        <!--  <span *ngIf="regulationFromGeneral"> Регуляторный компонент {{regulation}},</span>  <span *ngIf="regulation2">{{regulation2}},</span>
+               <span *ngIf="regulation3">{{regulation3}}.</span> -->
+
+             <span *ngIf="!attention && !switchOfMovements"><strong>Нейродинамический компонент </strong> без особенностей.</span>
               <span *ngIf="shultePoints && shultePoints !== '' "> Таблицы Шульте {{shultePoints}}.  </span>
               <span *ngIf="attention">При выполнении пробы отмечается {{attention}}. </span>
             </p>
@@ -215,7 +216,7 @@
           <div class="content-wrapper p-2">
             <app-chart></app-chart>
           </div>
-        </div>
+       </div>
         <button class="btn-sm bg-success mb-5 align-items-center"  #exportBtn *ngIf="isRefresh" (click)="exportPdf()">Скачать как PDF</button>
       </div>
     </div>

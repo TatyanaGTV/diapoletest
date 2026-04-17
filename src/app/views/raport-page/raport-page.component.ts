@@ -552,8 +552,7 @@ export class RaportPageComponent implements OnInit, AfterViewInit {
     let regulationFromGeneral_bad: RegulationType = [];
     let regulationFromGeneral_worse: RegulationType = [];
       //обработка 1 баллов общий блок
-      if (this.zeroSymptoms && this.zeroSymptoms.length > 0 ){ // сравнить вот эти массивы
-       // let regulationFromGeneral_normal:RegulationType = [];
+      if (this.zeroSymptoms && this.zeroSymptoms.length > 0 ){
         if (this.zeroSymptoms.find((a: PropertyType) => a.name === 'contact')) {
           if (!this.contact){
             this.contact = 'доступен';
